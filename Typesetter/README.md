@@ -49,6 +49,6 @@ You will need to give permissions so that the script can run.
 
 ### As a result, when you run the script, the text from the clipboard will print itself! 🎉
 
-![](https://media.giphy.com/media/BUm95s6HNl3UARSFQ6/source.gif)
+![](https://media.giphy.com/media/BUm95s6HNl3UARSFQ6/giphy.gif)
 
 ### Good luck!
