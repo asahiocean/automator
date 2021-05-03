@@ -1,5 +1,13 @@
 # Typesetter
 
+#### Sourcecode:
+```applescript
+on run {input, parameters}
+	tell application "System Events" to keystroke (the clipboard as text)
+	return input
+end run
+```
+
 Have you also had moments when copy-paste doesn't work?
 
 For example, here. There was such a situation when pasting from the clipboard does not work.
