@@ -4,7 +4,7 @@ Have you also had moments when copy-paste doesn't work?
 
 For example, here. There was such a situation when pasting from the clipboard does not work.
 
-![](https://media.giphy.com/media/zwLs9tJ2oe6ENGINpp/source.gif)
+![](https://media.giphy.com/media/BUm95s6HNl3UARSFQ6/giphy.gif)
 
 ### Ok, I accept the challenge!  🔥
 
@@ -27,7 +27,10 @@ For example, here. There was such a situation when pasting from the clipboard do
 ### Update the script like below:
 
 ```applescript
-on run {input, parameters}	tell application "System Events" to keystroke (the clipboard as text)	return inputend run
+on run {input, parameters}
+	tell application "System Events" to keystroke (the clipboard as text)
+	return input
+end run
 ```
 
 ### 5. Save it! Cool job! 👍
