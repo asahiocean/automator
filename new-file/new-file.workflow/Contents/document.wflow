@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>AMApplicationBuild</key>
-	<string>509</string>
+	<string>512</string>
 	<key>AMApplicationVersion</key>
 	<string>2.10</string>
 	<key>AMDocumentVersion</key>
@@ -47,11 +47,11 @@
 				<key>ActionBundlePath</key>
 				<string>/System/Library/Automator/Run AppleScript.action</string>
 				<key>ActionName</key>
-				<string>Запустить AppleScript</string>
+				<string>Run AppleScript</string>
 				<key>ActionParameters</key>
 				<dict>
 					<key>source</key>
-					<string>set title to "untitled"set extension to ".txt"set newfile to title &amp; extension -- "file" is reserved by the system, so "newfile"set isDesktop to falsetry	tell application "Finder"		set isFolder to (folder of the front Finder window) as alias	end tellon error	-- if no windows are open "Finder"	set isFolder to path to desktop folder as alias	set isDesktop to trueend try-- block of code with settings for the dialog box for specifying the file name-- to open the directory with icons, go to the terminal and enter-- open /System/Library/CoreServices/CoreTypes.bundle/Contents/Resourcesset displayText to "Enter file name and extension:"set newfile to text returned of (display dialog displayText ¬	with icon file ¬	":System:Library:CoreServices:CoreTypes.bundle:Contents:Resources:GenericApplicationIcon.icns" default answer newfile)tell application "System Events"	set fileList to get the name of every disk item of isFolderend tell-- if such a file already exists, then the number will be added to the name of the new file-- search for an unoccupied number will be found by iterating over all files with the same nameset x to 1repeat	if newfile is in fileList then		set newfile to title &amp; " " &amp; x &amp; extension		set x to x + 1	else		exit repeat	end ifend repeattell application "Finder"	activate	set thefile to make new file at folder isFolder with properties {name:newfile}	if isDesktop is false then		reveal thefile	else		select window of desktop		set selection to thefile	end ifend telltell application "System Events"	tell process "Finder"		open thefile -- to open the file in the default editor		-- keystroke return -- to rename the new file	end tellend tell</string>
+					<string>set theKind to "_filename"set theExtension to ".txt"set currentDate to do shell script "date +%Y-%m-%d_%H-%M-%S" as stringset fullFileName to theKind &amp; "_" &amp; currentDate &amp; theExtension as stringset isDesktop to falsetry	tell application "Finder"		set folderWindow to (folder of the front Finder window) as alias	end tellon error	-- if no windows are open "Finder"	set folderWindow to path to desktop folder as alias	set isDesktop to trueend try-- block of code with settings for the dialog box for specifying the file name-- to open the directory with icons, go to the terminal and enter-- open /System/Library/CoreServices/CoreTypes.bundle/Contents/Resourcesset dialogTitle to "Creating a new file"set dialogText to "Enter file name and extension:"set dialogIconPath to ":System:Library:CoreServices:CoreTypes.bundle:Contents:Resources:GenericApplicationIcon.icns"set dialogWindow to (display dialog dialogText with title dialogTitle buttons {"Cancel", "Create"} default button 2 cancel button 1 with icon file dialogIconPath default answer fullFileName)set fullFileName to text returned of dialogWindow-- if such a file already exists, then the number will be added to the name of the new file-- search for an unoccupied number will be found by iterating over all files with the same nametell application "System Events" to tell application "Finder"	set fileList to get the name of every item of folder folderWindow	activate	if fileList contains fullFileName then		select file fullFileName of folder folderWindow		beep 2		-- display alert "This file already exists!"	else		set thefile to make new file at folder folderWindow with properties {name:fullFileName}		if isDesktop is false then			reveal thefile		else			select window of desktop			set selection to thefile		end if	end ifend tell</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.RunScript</string>
@@ -71,7 +71,7 @@
 				<string>CF8EAF37-4046-4C69-A45B-0A4A805263EE</string>
 				<key>Keywords</key>
 				<array>
-					<string>Запустить</string>
+					<string>Run</string>
 				</array>
 				<key>OutputUUID</key>
 				<string>8B9E54D3-4AA9-4624-8118-3CC114B97CDC</string>
@@ -105,7 +105,7 @@ end run</string>
 				<key>isViewVisible</key>
 				<integer>1</integer>
 				<key>location</key>
-				<string>376.500000:658.000000</string>
+				<string>309.000000:906.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -117,30 +117,43 @@ end run</string>
 	<dict/>
 	<key>workflowMetaData</key>
 	<dict>
+		<key>applicationBundleID</key>
+		<string>com.apple.finder</string>
 		<key>applicationBundleIDsByPath</key>
-		<dict/>
+		<dict>
+			<key>/System/Library/CoreServices/Finder.app</key>
+			<string>com.apple.finder</string>
+		</dict>
+		<key>applicationPath</key>
+		<string>/System/Library/CoreServices/Finder.app</string>
 		<key>applicationPaths</key>
-		<array/>
+		<array>
+			<string>/System/Library/CoreServices/Finder.app</string>
+		</array>
 		<key>backgroundColorName</key>
 		<string>blackColor</string>
 		<key>inputTypeIdentifier</key>
-		<string>com.apple.Automator.nothing</string>
+		<string>com.apple.Automator.fileSystemObject</string>
 		<key>outputTypeIdentifier</key>
 		<string>com.apple.Automator.nothing</string>
 		<key>presentationMode</key>
-		<integer>11</integer>
+		<integer>15</integer>
 		<key>processesInput</key>
 		<integer>0</integer>
+		<key>serviceApplicationBundleID</key>
+		<string>com.apple.finder</string>
+		<key>serviceApplicationPath</key>
+		<string>/System/Library/CoreServices/Finder.app</string>
 		<key>serviceInputTypeIdentifier</key>
-		<string>com.apple.Automator.nothing</string>
+		<string>com.apple.Automator.fileSystemObject</string>
 		<key>serviceOutputTypeIdentifier</key>
 		<string>com.apple.Automator.nothing</string>
 		<key>serviceProcessesInput</key>
 		<integer>0</integer>
 		<key>systemImageName</key>
-		<string>NSTouchBarAdd</string>
+		<string>NSTouchBarCircleAdd</string>
 		<key>useAutomaticInputType</key>
-		<integer>1</integer>
+		<integer>0</integer>
 		<key>workflowTypeIdentifier</key>
 		<string>com.apple.Automator.servicesMenu</string>
 	</dict>
